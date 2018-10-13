@@ -1,0 +1,136 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="LearnDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Test">
+          <Key>
+            <PropertyRef Name="TestId" />
+          </Key>
+          <Property Name="TestId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TestName" Type="varchar" MaxLength="255" />
+          <Property Name="TestIsDeleted" Type="bit" />
+          <Property Name="TestCategoryId" Type="int" />
+        </EntityType>
+        <EntityType Name="TestCategory">
+          <Key>
+            <PropertyRef Name="TestCategoryId" />
+          </Key>
+          <Property Name="TestCategoryId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TestCategoryName" Type="varchar" MaxLength="255" />
+          <Property Name="TestCategoryIsDeleted" Type="bit" />
+        </EntityType>
+        <Association Name="FK__Test__TestCatego__145C0A3F">
+          <End Role="TestCategory" Type="Self.TestCategory" Multiplicity="0..1" />
+          <End Role="Test" Type="Self.Test" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TestCategory">
+              <PropertyRef Name="TestCategoryId" />
+            </Principal>
+            <Dependent Role="Test">
+              <PropertyRef Name="TestCategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="LearnDBModelStoreContainer">
+          <EntitySet Name="Test" EntityType="Self.Test" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TestCategory" EntityType="Self.TestCategory" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Test__TestCatego__145C0A3F" Association="Self.FK__Test__TestCatego__145C0A3F">
+            <End Role="TestCategory" EntitySet="TestCategory" />
+            <End Role="Test" EntitySet="Test" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="LearnDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Test">
+          <Key>
+            <PropertyRef Name="TestId" />
+          </Key>
+          <Property Name="TestId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TestName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="TestIsDeleted" Type="Boolean" />
+          <Property Name="TestCategoryId" Type="Int32" />
+          <NavigationProperty Name="TestCategory" Relationship="Self.FK__Test__TestCatego__145C0A3F" FromRole="Test" ToRole="TestCategory" />
+        </EntityType>
+        <EntityType Name="TestCategory">
+          <Key>
+            <PropertyRef Name="TestCategoryId" />
+          </Key>
+          <Property Name="TestCategoryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TestCategoryName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="TestCategoryIsDeleted" Type="Boolean" />
+          <NavigationProperty Name="Test" Relationship="Self.FK__Test__TestCatego__145C0A3F" FromRole="TestCategory" ToRole="Test" />
+        </EntityType>
+        <Association Name="FK__Test__TestCatego__145C0A3F">
+          <End Role="TestCategory" Type="Self.TestCategory" Multiplicity="0..1" />
+          <End Role="Test" Type="Self.Test" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TestCategory">
+              <PropertyRef Name="TestCategoryId" />
+            </Principal>
+            <Dependent Role="Test">
+              <PropertyRef Name="TestCategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="LearnDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Test" EntityType="Self.Test" />
+          <EntitySet Name="TestCategory" EntityType="Self.TestCategory" />
+          <AssociationSet Name="FK__Test__TestCatego__145C0A3F" Association="Self.FK__Test__TestCatego__145C0A3F">
+            <End Role="TestCategory" EntitySet="TestCategory" />
+            <End Role="Test" EntitySet="Test" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="LearnDBModelStoreContainer" CdmEntityContainer="LearnDBEntities">
+          <EntitySetMapping Name="Test">
+            <EntityTypeMapping TypeName="LearnDBModel.Test">
+              <MappingFragment StoreEntitySet="Test">
+                <ScalarProperty Name="TestId" ColumnName="TestId" />
+                <ScalarProperty Name="TestName" ColumnName="TestName" />
+                <ScalarProperty Name="TestIsDeleted" ColumnName="TestIsDeleted" />
+                <ScalarProperty Name="TestCategoryId" ColumnName="TestCategoryId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TestCategory">
+            <EntityTypeMapping TypeName="LearnDBModel.TestCategory">
+              <MappingFragment StoreEntitySet="TestCategory">
+                <ScalarProperty Name="TestCategoryId" ColumnName="TestCategoryId" />
+                <ScalarProperty Name="TestCategoryName" ColumnName="TestCategoryName" />
+                <ScalarProperty Name="TestCategoryIsDeleted" ColumnName="TestCategoryIsDeleted" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="無" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
