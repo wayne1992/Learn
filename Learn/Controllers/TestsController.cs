@@ -48,10 +48,12 @@ namespace Learn.Controllers
         // 詳細資訊，請參閱 https://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "TestId,TestName,TestIsDeleted,TestCategoryId")] Test test)
+        public ActionResult Create([Bind(Include = "TestId,TestName,TestCategoryId, TestCode")] Test test)
         {
+            test.TestIsDeleted = false;
             if (ModelState.IsValid)
             {
+                test.TestCode = ModelState["TestCode"].Value.AttemptedValue;
                 db.Test.Add(test);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -82,14 +84,26 @@ namespace Learn.Controllers
         // 詳細資訊，請參閱 https://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "TestId,TestName,TestIsDeleted,TestCategoryId")] Test test)
+        public ActionResult Edit(int id, FormCollection form)
         {
-            if (ModelState.IsValid)
-            {
+            //撈取這筆資料原始値
+            Test test = db.Test.Find(id);
+            //驗證黑名單
+            List<string> exclude = new List<string>() { "TestIsDeleted" };
+
+            //直接修改 form["TestCode"] 値
+            form["TestCode"] = "7,8,9";
+
+            //直接修改原始資料
+            test.TestCode = "2,3,4";
+            //延遲驗證
+            if (TryUpdateModel(test, "", null, exclude.ToArray())) {
+                var modelState = ModelState;
                 db.Entry(test).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+
             ViewBag.TestCategoryId = new SelectList(db.TestCategory, "TestCategoryId", "TestCategoryName", test.TestCategoryId);
             return View(test);
         }
