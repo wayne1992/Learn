@@ -1,0 +1,42 @@
+﻿@model Learn.Models.Test
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Test</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.TestName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TestName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TestIsDeleted)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TestIsDeleted)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TestCategory.TestCategoryName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TestCategory.TestCategoryName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.TestId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
