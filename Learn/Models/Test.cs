@@ -18,6 +18,7 @@ namespace Learn.Models
         public string TestName { get; set; }
         public Nullable<bool> TestIsDeleted { get; set; }
         public Nullable<int> TestCategoryId { get; set; }
+        public string TestCode { get; set; }
     
         public virtual TestCategory TestCategory { get; set; }
     }

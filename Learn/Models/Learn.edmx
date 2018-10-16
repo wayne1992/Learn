@@ -13,6 +13,7 @@
           <Property Name="TestName" Type="varchar" MaxLength="255" />
           <Property Name="TestIsDeleted" Type="bit" />
           <Property Name="TestCategoryId" Type="int" />
+          <Property Name="TestCode" Type="varchar" MaxLength="128" />
         </EntityType>
         <EntityType Name="TestCategory">
           <Key>
@@ -55,6 +56,7 @@
           <Property Name="TestIsDeleted" Type="Boolean" />
           <Property Name="TestCategoryId" Type="Int32" />
           <NavigationProperty Name="TestCategory" Relationship="Self.FK__Test__TestCatego__145C0A3F" FromRole="Test" ToRole="TestCategory" />
+          <Property Name="TestCode" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="TestCategory">
           <Key>
@@ -94,6 +96,7 @@
           <EntitySetMapping Name="Test">
             <EntityTypeMapping TypeName="LearnDBModel.Test">
               <MappingFragment StoreEntitySet="Test">
+                <ScalarProperty Name="TestCode" ColumnName="TestCode" />
                 <ScalarProperty Name="TestId" ColumnName="TestId" />
                 <ScalarProperty Name="TestName" ColumnName="TestName" />
                 <ScalarProperty Name="TestIsDeleted" ColumnName="TestIsDeleted" />
